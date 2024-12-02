@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
@@ -25,10 +26,9 @@ class MyApp extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            // Menerapkan Drawer di dalam Scaffold
             endDrawer: Drawer(
               child: Container(
-                color: Colors.white, // Warna latar belakang drawer
+                color: Colors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -61,13 +61,12 @@ class MyApp extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // ListTile untuk menu
                     Expanded(
                       child: ListView(
                         padding: EdgeInsets.zero,
                         children: [
                           ListTile(
-                            leading: const Icon(Icons.home,
+                            leading: const Icon(FontAwesomeIcons.house,
                                 color: Colors.blueAccent),
                             title: const Text(
                               'HOME',
@@ -77,9 +76,25 @@ class MyApp extends StatelessWidget {
                               Navigator.pop(context);
                             },
                           ),
-                          const Divider(), // Pembatas antar menu
+                          const Divider(),
                           ListTile(
-                            leading: const Icon(Icons.phone_android_outlined,
+                            leading: const Icon(Icons.calendar_today,
+                                color: Colors.orange),
+                            title: const Text(
+                              'Habit Tracker',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HabitTrackerPage()),
+                              );
+                            },
+                          ),
+                          const Divider(),
+                          ListTile(
+                            leading: const Icon(FontAwesomeIcons.whatsapp,
                                 color: Colors.green),
                             title: const Text(
                               'WhatsApp',
@@ -97,7 +112,7 @@ class MyApp extends StatelessWidget {
                             },
                           ),
                           ListTile(
-                            leading: const Icon(Icons.camera_alt_outlined,
+                            leading: const Icon(FontAwesomeIcons.instagram,
                                 color: Colors.purple),
                             title: const Text(
                               'Instagram',
@@ -114,7 +129,51 @@ class MyApp extends StatelessWidget {
                               }
                             },
                           ),
-                          const Divider(), // Pembatas antar menu
+                          const Divider(),
+                          ListTile(
+                            leading:
+                                const Icon(Icons.movie, color: Colors.blue),
+                            title: const Text(
+                              'Daftar Film/Buku',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MovieBookListPage()),
+                              );
+                            },
+                          ),
+                          const Divider(),
+                          ListTile(
+                            leading: const Icon(Icons.info, color: Colors.teal),
+                            title: const Text(
+                              'Informasi',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Informasi'),
+                                  content: const Text(
+                                    'Novaldy Brayn Rumteh adalah pengembang aplikasi mobile yang bersemangat untuk terus belajar. Dalam waktu singkat, ia telah menyelesaikan berbagai proyek, menunjukkan kemampuan beradaptasi yang luar biasa.',
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Close'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                          const Divider(),
                           ListTile(
                             leading:
                                 const Icon(Icons.logout, color: Colors.red),
@@ -165,20 +224,16 @@ class MyApp extends StatelessWidget {
                     child: Image.asset(
                       'assets/ALTEREGO.jpg',
                       fit: BoxFit.cover,
-                      width: 90, // Tentukan lebar gambar
-                      height: 90, // Tentukan tinggi gambar
+                      width: 120,
+                      height: 120,
                     ),
                   ),
-                  const SizedBox(
-                    height: 25,
-                  ),
+                  const SizedBox(height: 25),
                   const Text(
                     'Novaldy Brayn Rumteh',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   const Text(
                     'Mobile Application Engineer',
                     style: TextStyle(
@@ -187,95 +242,39 @@ class MyApp extends StatelessWidget {
                       color: Colors.grey,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   const Padding(
                     padding: EdgeInsets.all(15.0),
                     child: SelectableText(
-                      'Flutter developer that loves to learn new things. I am currently working as a Flutter developer at Kompas Gramedia.',
-                      style: TextStyle(
-                        fontSize: 17,
-                      ),
+                      'Flutter developer that loves to learn new things.',
+                      style: TextStyle(fontSize: 17),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   const SizedBox(height: 30),
-
-                  // Menambahkan ikon dan informasi Experience dan Projects
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Experience
-                      Column(
-                        children: [
-                          const Icon(Icons.access_time,
-                              size: 40, color: Colors.blue),
-                          const SizedBox(height: 8),
-                          const Text(
-                            '2 weeks ',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(width: 40), // Jarak antar kolom
-                      // Projects
-                      Column(
-                        children: [
-                          const Icon(Icons.code,
-                              size: 40, color: Colors.purple),
-                          const SizedBox(height: 8),
-                          const Text(
-                            '2 Projects',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-
-                  // Menambahkan bagian Skills & Expertise
                   const Text(
                     'Skills & Expertise',
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.purple),
+                        color: Colors.black87),
                   ),
                   const SizedBox(height: 15),
                   Wrap(
-                    spacing: 10.0, // Spasi antar chip
-                    runSpacing: 10.0, // Spasi antar baris chip
+                    spacing: 10.0,
+                    runSpacing: 10.0,
                     children: const [
                       Chip(
                         label: Text('Flutter'),
-                        backgroundColor: Colors.blueAccent,
-                        labelStyle: TextStyle(color: Colors.white),
+                        backgroundColor: Colors.blue,
                       ),
                       Chip(
                         label: Text('Dart'),
-                        backgroundColor: Colors.blue,
-                        labelStyle: TextStyle(color: Colors.white),
+                        backgroundColor: Colors.blueAccent,
                       ),
                       Chip(
-                        label: Text('Laravel'),
-                        backgroundColor: Colors.green,
-                        labelStyle: TextStyle(color: Colors.white),
-                      ),
-                      Chip(
-                        label: Text('Git'),
-                        backgroundColor: Colors.pink,
-                        labelStyle: TextStyle(color: Colors.white),
-                      ),
-                      Chip(
-                        label: Text('UI/UX'),
-                        backgroundColor: Colors.purple,
-                        labelStyle: TextStyle(color: Colors.white),
+                        label: Text('Firebase'),
+                        backgroundColor: Colors.orange,
                       ),
                     ],
                   ),
@@ -284,6 +283,186 @@ class MyApp extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class Habit {
+  final String name;
+  bool isCompleted;
+
+  Habit({required this.name, required this.isCompleted});
+}
+
+// Halaman Habit Tracker
+class HabitTrackerPage extends StatefulWidget {
+  @override
+  _HabitTrackerPageState createState() => _HabitTrackerPageState();
+}
+
+class _HabitTrackerPageState extends State<HabitTrackerPage> {
+  List<Habit> habits = [
+    Habit(name: 'Olahraga', isCompleted: false),
+    Habit(name: 'Membaca', isCompleted: false),
+    Habit(name: 'Meditasi', isCompleted: false),
+    Habit(name: 'Minum Air', isCompleted: false),
+  ];
+
+  void _toggleHabit(int index) {
+    setState(() {
+      habits[index].isCompleted = !habits[index].isCompleted;
+    });
+  }
+
+  void _addHabit(String name) {
+    setState(() {
+      habits.add(Habit(name: name, isCompleted: false));
+    });
+  }
+
+  void _removeHabit(int index) {
+    setState(() {
+      habits.removeAt(index);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Habit Tracker')),
+      body: ListView.builder(
+        itemCount: habits.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(habits[index].name),
+            trailing: Checkbox(
+              value: habits[index].isCompleted,
+              onChanged: (bool? value) {
+                _toggleHabit(index);
+              },
+            ),
+            onLongPress: () {
+              _removeHabit(index);
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Tampilkan dialog untuk menambah habit baru
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class MovieBookListPage extends StatelessWidget {
+  final List<Map<String, dynamic>> movieList = [
+    {
+      'title': 'harry potter and the philosopher stone',
+      'rating': 4.5,
+      'image': 'assets/harry.jpg'
+    },
+    {
+      'title': 'pride and prejudice',
+      'rating': 4.7,
+      'image': 'assets/pride.jpg'
+    },
+    {
+      'title': 'sapiens a brief history of human kind',
+      'rating': 5.0,
+      'image': 'assets/sapiens.jpg'
+    },
+  ];
+
+  final List<Map<String, dynamic>> bookList = [
+    {'title': '1984', 'rating': 4.8, 'image': 'assets/images.jpg'},
+    {'title': 'the great gatsby', 'rating': 4.6, 'image': 'assets/gatsby.jpg'},
+    {
+      'title': 'To Kill a Mockingbird',
+      'rating': 4.9,
+      'image': 'assets/mocking.png'
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Daftar Film/Buku')),
+      body: ListView(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Daftar Film:',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          ...movieList
+              .map((movie) => Card(
+                    margin: const EdgeInsets.all(8.0),
+                    elevation: 5,
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.all(10),
+                      leading: Image.asset(movie['image'], width: 50),
+                      title: Text(movie['title']),
+                      subtitle: Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.yellow[700]),
+                          Text(movie['rating'].toString())
+                        ],
+                      ),
+                      onTap: () {
+                        // Tambahkan aksi untuk film, jika ada
+                      },
+                    ),
+                  ))
+              .toList(),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Daftar Buku:',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          ...bookList
+              .map((book) => Card(
+                    margin: const EdgeInsets.all(8.0),
+                    elevation: 5,
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.all(10),
+                      leading: Image.asset(book['image'], width: 50),
+                      title: Text(book['title']),
+                      subtitle: Row(
+                        children: [
+                          Icon(Icons.star, color: Colors.yellow[700]),
+                          Text(book['rating'].toString())
+                        ],
+                      ),
+                      onTap: () {
+                        // Tambahkan aksi untuk buku, jika ada
+                      },
+                    ),
+                  ))
+              .toList(),
+        ],
+      ),
+    );
+  }
+}
+
+class ColiListDayPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Coli List Day')),
+      body: Center(
+        child: const Text(
+          'List of Coli Days will be displayed here.',
+          style: TextStyle(fontSize: 18),
+        ),
       ),
     );
   }
